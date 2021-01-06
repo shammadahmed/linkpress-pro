@@ -1,0 +1,16 @@
+<?php $__env->startSection('title', 'Protection'); ?>
+<?php $__env->startSection('panel'); ?>
+	<h3>Protection Center</h3>
+	<hr>
+	<?php echo $__env->make('partials.errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<?php echo $__env->make('partials.session', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<p>Delete all the links containing this word:</p>
+	<form role="form" action="<?php echo e(url('admin/protection')); ?>" method="POST">
+		<div class="form-group">
+			<input type="text" class="form-control" name="word">
+		</div>
+		<button class="btn btn-warning btn-lg btn-block">Delete Links</button>
+	</form>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,13 @@
+<?php $__env->startSection('title', 'Top 10 Most Visited Links'); ?>
+
+<?php $__env->startSection('heading'); ?>
+	Top 10 Most Visited Links
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
+	<?php echo $__env->make('partials.links', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<div class="block">
+	</div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,128 @@
+<?php $__env->startSection('title', "$sLink->title"); ?>
+
+<?php $__env->startSection('content'); ?>
+	<?php
+$appData = App\App::first();
+?>
+	<div class="cos hidden-sm hidden-md hidden-lg">
+		<b>
+			<a href="<?php echo e(url($sLink->url)); ?>">
+				<i class="fa fa-external-link"></i>
+				<span class="link-text">
+					Continue To Site
+				</span>
+			</a>
+		</b>
+	</div>
+	<!-- Nav tabs -->
+	<ul class="nav nav-justified linksTab" role="tablist">
+	  <li role="presentation" class="active">
+	  	<a href="#meta" aria-controls="meta"ole="tab" data-toggle="tab">
+	  		<i class="fa fa-code"></i>
+	  		<span class="link-text">Meta</span>
+	  	</a>
+	  </li>
+	  <li role="presentation">
+	  	<a href="#whois" aria-controls="whois" role="tab" data-toggle="tab">
+	  		<i class="fa fa-info"></i>
+	  		<span class="link-text">Whois</span>
+	  	</a>
+	  </li>
+	  <li role="presentation">
+	  	<a href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab">
+	  		<i class="fa fa-pie-chart"></i>
+	  		<span class="link-text">Stats</span>
+	  	</a>
+	  </li>
+	</ul>
+	<div class="block">
+		<div class="linkBlock">
+			<div class="tab-content">
+			  <div role="tabpanel" class="tab-pane fade in active" id="meta">
+			  	<div class="row arow">
+					<div class="col-md-2 preview hidden-xs">
+						<img src="<?php echo e($sLink->image); ?>" onError="this.onerror=null;this.src='<?php echo e(asset('images/preview.jpg')); ?>';" alt="Website Preview"  class="previewImg">
+					</div>
+					<div class="col-md-10">
+						<a href="<?php echo e(url($sLink->hash)); ?>"><h3><?php echo e($sLink->title); ?></h3></a>
+						<form method="POST" class="ajax" action="<?php echo e(url('favorites/' . $sLink->id)); ?>" accept-charset="UTF-8">
+						    <input type="hidden" name="_token" value="<?php echo e(Session::getToken()); ?>">
+							<?php echo csrf_field(); ?>
+
+							<?php echo e(method_field('PUT')); ?>
+
+							<div id="stars" class="starrr"></div>
+						</form>
+						<p><?php echo e($sLink->description); ?></p>
+						<a href="<?php echo e(buildUrl($sLink->url)); ?>">
+							<?php echo e($sLink->url); ?>
+
+						</a>
+						<div class="keywords">
+							<?php foreach($sLink->keywords as $keyword): ?>
+								<span class="label label-warning"><?php echo e($keyword->name); ?></span>
+							<?php endforeach; ?>
+						</div>
+						<div class="share-buttons hidden-xs">
+							<?php echo $__env->make('links.share-buttons-show', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+						</div>
+					</div>
+				</div>
+
+			  </div>
+			  <div role="tabpanel" class="tab-pane fade" id="whois">
+			  	  <h3>Whois data for <?php echo e($sLink->domain); ?></h3>
+				  <div class="whois-loader">
+					  <h4>Loding...</h4>
+					  <img src="<?php echo e(asset('images/loader.gif')); ?>" id="loader">
+				  </div>
+				  <p class="whois-info"></p>
+			  </div>
+			  <div role="tabpanel" class="tab-pane fade" id="statistics">
+				  <h3>Stats for <?php echo e($sLink->domain); ?></h3>
+				  <div class="stats">
+				  	<?php echo $__env->make('partials.stats', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+				  </div>
+				  <?php echo $__env->make('partials.alexa', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			  </div>
+ 			</div>
+		</div>
+		<span class='divider'></span>
+		<div>
+			<?php echo $appData->ad; ?>
+
+		</div>
+		<?php echo $__env->make('partials.comments', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	</div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('js'); ?>
+	<?php echo $__env->make('partials.favoriteJS', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<script>
+		(function($, window) {
+			$.ajax({
+			    type: "GET",
+			    url: "<?php echo e(url('whois')); ?>",
+			    data: { domain: "<?php echo e($sLink->domain); ?>" },
+			    success: function(data) {
+			    	$('.whois-loader').hide();
+				    $.each(data, function(int, val) {
+				    	$('p.whois-info').append(
+				    		$('p.whois-info').append(document.createTextNode(val)).append('<br>')
+				    	);
+					});
+			    },
+		        error: function(jqXHR,error, errorThrown) {
+		            if(jqXHR.status&&jqXHR.status==400){
+				    	$('p.whois-info').text(jqXHR.responseText);
+				    	console.log(jqXHR.responseText);
+		            }else{
+				    	$('p.whois-info').text(jqXHR.responseText);
+				    	console.log(jqXHR.responseText);
+		            }
+		        }
+			},"json");
+		})(window.jQuery, window);
+	</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

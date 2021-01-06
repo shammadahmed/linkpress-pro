@@ -1,0 +1,56 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<?php echo e(url('/')); ?>"><h3 class="logo"><?php echo e($appData->name); ?></h3></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+      <ul class="nav navbar-nav">
+        <li class="active visible-lg"><a href="<?php echo e(url('/')); ?>">Home <span class="sr-only">(current)</span></a></li>
+        <li class="visible-md visible-lg"><a href="<?php echo e(url('links/import')); ?>">Bulk Import</a></li>
+        <li class="visible-lg"><a href="<?php echo e(url('api/documentation')); ?>">API</a></li><?php /*
+        <li class="visible-md visible-lg"><a href="<?php echo e(url('links/categories')); ?>">Categories</a></li>
+        <li class="visible-lg"><a href="<?php echo e(url('links/bookmarks')); ?>">Bookmarks</a></li> */ ?>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Link <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Share</li>
+            <li><a href="<?php echo e(url('link/create')); ?>">Shorten Link</a></li>
+            <li><a href="<?php echo e(url('links/import')); ?>">Bulk Import</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Explore</li>
+            <li><a href="<?php echo e(url('links/top')); ?>">Top 10 Links</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Developers</li>
+            <li><a href="<?php echo e(url('api/documentation')); ?>">API documentation</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form method="GET" action="<?php echo e(url('link/search')); ?>" class="navbar-form navbar-left" role="search">
+        <div class="input-group">
+          <input name="q" value="<?php echo e(old('q')); ?>" type="text" class="form-control" placeholder="Search Links">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+          </span>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+        <?php if(!empty($sLink)): ?>
+          <a href="<?php echo e(buildUrl($sLink->url)); ?>" class="btn btn-danger link hidden-xs">
+            <i class="fa fa-external-link"></i>
+            <b class="link-text">Continue to site</b>
+          </a>
+        <?php else: ?>
+          <li class="visible-lg"><a href="<?php echo e(url('links/top')); ?>" class="btn btn-lg">Top Links</a></li>
+          <a href="<?php echo e(url('links')); ?>" class="btn btn-primary navbar-btn link">Explore The Directory</a>
+        <?php endif; ?>
+      </ul>
+    </div>
+  </div>
+</nav>

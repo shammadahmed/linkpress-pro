@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="<?php echo e(isset($link->description) ? $link->description : $appData->description); ?>">
+    <meta name="keywords" content="<?php if(isset($link->keywords) AND !empty($link->keywords->toArray())): ?><?php echo e(trim(implode($link->keywords->lists('name')->toArray(), ','))); ?><?php else: ?><?php echo e(trim($appData->description)); ?> <?php endif; ?>">
+    <title>
+      <?php echo $__env->yieldContent('title'); ?> | <?php echo e($appData->name); ?>
+
+    </title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700|Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="<?php echo e(asset('css/app.min.css')); ?>">
+
+
+<!--     <link rel="stylesheet" href="<?php echo e(asset('css/bootstrap.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/style.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/yamm.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/rrssb.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/stats.css')); ?>"> -->
+
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <?php echo $__env->make('partials.navbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php /*         <div class="block banner-ad">
+          <?php echo $appData->ad; ?>
+
+        </div> */ ?>
+    <div class="wrapper">
+        <?php echo $__env->yieldContent('content'); ?>
+    </div>
+    <script src="<?php echo e(asset('js/app.min.js')); ?>"></script>
+    <?php echo $__env->yieldContent('js'); ?>
+  </body>
+</html>

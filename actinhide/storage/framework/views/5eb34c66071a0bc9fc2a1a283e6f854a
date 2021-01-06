@@ -1,0 +1,17 @@
+<div class="block">
+	<h3><?php echo $__env->yieldContent('heading', 'Recently Shared Links'); ?></h3>
+	<hr>
+	<?php $appData = App\App::first();
+$count = 1;
+?>
+	<?php if($links): ?>
+		<?php foreach($links as $link): ?>
+			<?php echo $__env->make('partials.link', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<?php if($count % 2 == 0 && $count > 0): ?>
+		        <?php echo $appData->ad; ?>
+
+		    <?php endif; ?>
+		    <?php $count++;?>
+		<?php endforeach; ?>
+	<?php endif; ?>
+</div>

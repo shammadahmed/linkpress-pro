@@ -1,0 +1,48 @@
+<?php $__env->startSection('title', 'Admin Configuration'); ?>
+<?php $__env->startSection('panel'); ?>
+    <h3>Admin Configuration</h3>
+    <hr>
+    <?php echo $__env->make('partials.errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <?php echo $__env->make('partials.session', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+    <form class="form-horizontal" role="form" method="POST" action="<?php echo e(url('admin/user')); ?>">
+        <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Name</label>
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="name" value="<?php echo e($user->name); ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">E-Mail Address</label>
+            <div class="col-md-6">
+                <input type="email" class="form-control" name="email" value="<?php echo e($user->email); ?>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Password</label>
+            <div class="col-md-6">
+                <input type="password" class="form-control" name="password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-4 control-label">Confirm Password</label>
+            <div class="col-md-6">
+                <input type="password" class="form-control" name="password_confirmation">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-4">
+                <button type="submit" class="btn btn-primary">
+                    Update Admin Settings
+                </button>
+            </div>
+        </div>
+    </form>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

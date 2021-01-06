@@ -1,0 +1,44 @@
+<?php $__env->startSection('title', 'Manage Links'); ?>
+<?php $__env->startSection('panel'); ?>
+	<h3>Manage Links</h3>
+	<hr>
+	<?php echo $__env->make('partials.session', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+	<div class="table-responsive">
+	    <table class="table table-hover">
+	    	<thead>
+		    	<tr>
+		    		<th>#</th>
+		    		<th>Link</th>
+		    		<th>Delete</th>
+		    	</tr>
+	    	</thead>
+	    	<tbody>
+	    		<?php foreach($links as $link): ?>
+		    		<tr>
+		    			<td><?php echo e($link->id); ?></td>
+		    			<td>
+			    			<a href="<?php echo e(url($link->hash)); ?>">
+			    				<?php echo e($link->title); ?>
+
+			    			</a>
+		    			</td>
+		    			<td>
+		    				<form role="form" method="POST" action="<?php echo e(url('link/' . $link->hash)); ?>">
+		    					<?php echo e(method_field('DELETE')); ?>
+
+		    					<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+		    					<button type="submit" class="btn btn-danger">
+			    					<i class="fa fa-trash"></i>
+		    					</button>
+			    			</form>
+		    			</td>
+		    		</tr>
+	    		<?php endforeach; ?>
+	    	</tbody>
+	    </table>
+	</div>
+	<?php echo $links->render(); ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
